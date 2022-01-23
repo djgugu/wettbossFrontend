@@ -3,10 +3,26 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { BrowserRouter } from "react-router-dom";
+import UserContext from "./context";
+
+
+const user = {
+  name: 'Kwame',
+  login: true,
+  favorites: [
+    'avocado',
+    'carrot'
+  ]
+}
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <UserContext.Provider value={user}>
+    <BrowserRouter basename={"/wordpress"}>
+      <App />
+    </BrowserRouter>
+    </UserContext.Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

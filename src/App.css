@@ -7,12 +7,76 @@
   pointer-events: none;
 }
 
+.black-gradient {
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  width: 4rem;
+  height: 4rem;
+  margin-top: -24px;
+  opacity: 1;
+  background: linear-gradient(
+195deg, rgb(66, 66, 74), rgb(25, 25, 25));
+  color: rgb(255, 255, 255);
+  border-radius: 0.75rem;
+  box-shadow: rgb(0 0 0 / 14%) 0rem 0.25rem 1.25rem 0rem, rgb(64 64 64 / 40%) 0rem 0.4375rem 0.625rem -0.3125rem;
+}
+
+
+.green-gradient {
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  width: 4rem;
+  height: 4rem;
+  margin-top: -24px;
+  opacity: 1;
+  background: linear-gradient(
+195deg, rgb(102, 187, 106), rgb(67, 160, 71));
+  color: rgb(255, 255, 255);
+  border-radius: 0.75rem;
+  box-shadow: rgb(0 0 0 / 14%) 0rem 0.25rem 1.25rem 0rem, rgb(76 175 79 / 40%) 0rem 0.4375rem 0.625rem -0.3125rem;
+}
+
+
+.red-gradient {
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  width: 4rem;
+  height: 4rem;
+  margin-top: -24px;
+  opacity: 1;
+ background: #d32f2f; 
+  color: rgb(255, 255, 255);
+  border-radius: 0.75rem;
+  box-shadow: rgb(0 0 0 / 14%) 0rem 0.25rem 1.25rem 0rem, rgb(233 30 98 / 40%) 0rem 0.4375rem 0.625rem -0.3125rem;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
 }
-
+.active {
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.87);
+  background-color: black;
+  color: white;
+}
+.active svg{
+  color: white;
+}
+.inactive {
+  color: rgba(0, 0, 0, 0.87);
+  text-decoration: none;
+}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
