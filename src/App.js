@@ -33,7 +33,10 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function App(props) {
   const user = useContext(UserContext);
-  
+  // const [context, setContext] = useContext(UserContext);
+
+  // const user = {login: true};
+
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -242,7 +245,7 @@ function App(props) {
                    <Avatar src="" />
                   </IconButton>
               ) : (
-                <Button variant="contained" component={NavLink} to="sign-up" color="error">Anmelden</Button>
+                <Button variant="contained" component={NavLink} to="sign-in" color="error">Anmelden</Button>
 
               )}
             

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
@@ -9,12 +9,13 @@ import UserContext from "./context";
 
 const user = {
   name: 'Kwame',
-  login: true,
+  login: false,
   favorites: [
     'avocado',
     'carrot'
   ]
 }
+// const [context, setContext] = useState("default context value");
 
 ReactDOM.render(
   <React.StrictMode>

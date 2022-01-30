@@ -12,6 +12,7 @@ import Profile from "pages/profile";
 import CreateUserTipps from "pages/create-user-tipps";
 import CreateWettschein from "pages/create-wettschein";
 import NotFoundPage from "pages/404";
+import PasswortResetPage from "pages/reset-password";
 
 
 const routes = [
@@ -81,31 +82,41 @@ const routes = [
     {
       type: "collapse",
       name: "profile",
-      key: "profile",
-      route: "/profile",
+      key: "profile66666",
+      route: "/profile/:id",
       component: <Profile />,
     },
     {
       type: "collapse",
       name: "profile",
-      key: "profile",
+      key: "profile555",
       route: "/create-user-tipps",
       component: <CreateUserTipps />,
     },
     {
       type: "collapse",
       name: "profile",
-      key: "profile",
+      key: "profile44",
       route: "/create-wettschein",
       component: <CreateWettschein />,
     },
     {
       type: "collapse",
       name: "profile",
-      key: "profile",
+      key: "profile33",
       route: "/not-found",
       component: <NotFoundPage />,
     },
+    {
+      type: "collapse",
+      name: "profile",
+      key: "profile2",
+      route: "/reset-password/:key",
+      component: <PasswortResetPage />,
+    },
+
+    
+
   ];
   
   export default routes;

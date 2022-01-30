@@ -12,16 +12,18 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider, useTheme } from '@mui/material/styles';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate  } from 'react-router-dom';
 import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
 import ConnectWithoutContactIcon from '@mui/icons-material/ConnectWithoutContact';
-import { Backdrop, CircularProgress, Divider, InputAdornment } from '@mui/material';
+import { Backdrop, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, InputAdornment } from '@mui/material';
 import GoogleIcon from '@mui/icons-material/Google';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PersonIcon from '@mui/icons-material/Person';
 import EmailIcon from '@mui/icons-material/Email';
 import LockIcon from '@mui/icons-material/Lock';
+import axios from 'axios';
+import FacebookLogin from 'react-facebook-login';
 
 function Copyright(props) {
   return (
@@ -37,32 +39,105 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignUp() {
+  const responseFacebook = (response) => {
+    // setFbOpen(true)
+    console.log(response);
+  }
+
+  const fbReg = () => {
+    
+  }
+  let navigate = useNavigate();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    setOpen(!open);
+    setOpen(true);
 
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+    axios
+    .post(`http://localhost/wordpress/wp-json/wettboss-api/v1/users`,{
       username: data.get('username'),
-      checkbox: data.get('checkbox')
+      password: data.get('password'),
+      email: data.get('email'),
+      check: data.get('checkbox')
+    })
+    .then((res) => {
+      setOpen(false);
+      // setdata(res.data);
+      let data = res.data;
+      console.log(data)
+      console.log(data.user.length)
+        setUser({error: data.user.error, errorMsg: data.user.errorMsg});
+        setEmail({error: data.email.error, errorMsg: data.email.errorMsg});
+        setPassword({error: data.password.error, errorMsg: data.password.errorMsg});
+      if(data.check == true && data.user.error == false &&  data.password.error == false &&  data.email.error == false) {
+        navigate('/profile');
+      }
+
+      // setIsLoaded(false)
+    }).catch(function (error) {
+      setOpen(false);
+      console.log(error);
     });
+
   };
   const theme = useTheme();
 
+
+  const [user, setUser] = React.useState({error: false, errorMsg: ""});
+  const [email, setEmail] = React.useState({error: false, errorMsg: ""});
+  const [password, setPassword] = React.useState({error: false, errorMsg: ""});
+
   const [open, setOpen] = React.useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
   const handleClose = () => {
     setOpen(false);
   };
 
+  const [fbopen, setFbOpen] = React.useState(false);
+  const handleCloseFB = () => {
+    setFbOpen(false);
+  };
+
+
   return (
     <ThemeProvider theme={theme}>
+
+<Dialog open={fbopen} onClose={handleCloseFB}>
+        <DialogTitle>Subscribe</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Bitte einen Benutzernamen eingeben und die AGBs akzeptieren!
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Email Address"
+            type="email"
+            fullWidth
+            variant="standard"
+          />
+            <FormControlLabel
+              name="checkbox"
+              control={<Checkbox value="acceptAGB" color="info" />}
+              label="Indem du dich registrierst, stimmst du den Allgemeinen Nutzungsbedingungen und Datenschutzrichtlinien zu."
+            />
+
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseFB}>Abbrechen</Button>
+          <Button onClick={fbReg}>Regestrieren</Button>
+        </DialogActions>
+      </Dialog>
+      
+
       <Backdrop
   sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
   open={open}
-  onClick={handleClose}
 >
   <CircularProgress color="inherit" />
 </Backdrop>
@@ -95,10 +170,10 @@ export default function SignUp() {
                   color="info"
                   id="username"
                   label="Benutzername"
-                  helperText="Benutzername darf max. 20 zeichen lang sein"
+                  helperText={user.error ? user.errorMsg : ""}
                   autoFocus
                   type="text"
-                  error={false}
+                  error={user.error}
                   InputProps={{
                     startAdornment: <InputAdornment position="start"><PersonIcon /></InputAdornment>,
                   }}
@@ -113,6 +188,8 @@ export default function SignUp() {
                   name="email"
                   autoComplete="family-name"
                   type="email"
+                  helperText={email.error ? email.errorMsg : ""}
+                  error={email.error}
                   InputProps={{
                     startAdornment: <InputAdornment position="start"><EmailIcon /></InputAdornment>,
                   }}
@@ -136,6 +213,8 @@ export default function SignUp() {
                   label="Passwort"
                   type="password"
                   id="password"
+                  helperText={password.error ? password.errorMsg : ""}
+                  error={password.error}
                   autoComplete="new-password"
                   InputProps={{
                     startAdornment: <InputAdornment position="start"><LockIcon /></InputAdornment>,
@@ -169,19 +248,26 @@ export default function SignUp() {
             </Grid>
           </Box>
         </Box>
-        <Divider sx={{marginTop: 2, marginBottom: 2 }}>Oder</Divider>
+        {/* <Divider sx={{marginTop: 2, marginBottom: 2 }}>Oder</Divider>
         <Grid container spacing={2}>
-            <Grid item xs={6}>
+            <Grid item xs={12}>
             <Button variant="outlined" startIcon={<GoogleIcon />}>
                 Google
             </Button>
             </Grid>
-            <Grid item xs={6} sx={{textAlign: "right"}}>
-            <Button variant="outlined"  startIcon={<FacebookIcon />}>
-                facebook
-            </Button>                
+            <Grid item xs={12} sx={{textAlign: "right"}}>
+
+            <FacebookLogin
+    appId="3486670654772781"
+    autoLoad={false}
+    fields="name,email,picture"
+    onClick={() => setOpen(true)}
+    callback={responseFacebook} 
+    icon={<FacebookIcon />}
+/>
+
             </Grid>
-        </Grid>
+        </Grid> */}
         <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>

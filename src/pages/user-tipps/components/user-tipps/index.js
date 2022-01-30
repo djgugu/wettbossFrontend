@@ -5,6 +5,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { red, grey } from '@mui/material/colors';
 import { styled } from '@mui/material/styles';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { Link } from 'react-router-dom';
 
 
 const ExpandMore = styled((props) => {
@@ -38,7 +39,7 @@ function UserTippsCard(props) {
             <MoreVertIcon />
           </IconButton>
         }
-        title="Lorem ipsum dolor si"
+        title={<Link to='/profile/28'>Lorem ipsum dolor si</Link>} 
         subheader="vor 1 Std."
       />
       <CardContent sx={{paddingTop: 0}}> 

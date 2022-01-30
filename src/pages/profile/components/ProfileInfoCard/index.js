@@ -15,7 +15,7 @@ import { Box, Grid, Typography, Button } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import React from "react";
 
-function ProfileInfoCard({ title, description, info, social, action, shadow }) {
+function ProfileInfoCard({ title, description, info, social, action, shadow, userdata }) {
   const labels = [];
   const values = [];
 
@@ -106,7 +106,7 @@ function ProfileInfoCard({ title, description, info, social, action, shadow }) {
             </Grid>
             <Grid item xs={6}>
                 <Typography variant="button" fontWeight="regular" color="text">
-                &nbsp;September 2021
+                &nbsp;{userdata.created_at}
                 </Typography>
             </Grid>
         </Grid>
@@ -118,7 +118,7 @@ function ProfileInfoCard({ title, description, info, social, action, shadow }) {
             </Grid>
             <Grid item xs={6}>
                 <Typography variant="button" fontWeight="regular" color="text">
-                &nbsp;12.000
+                &nbsp;{userdata.tipp_counter}
                 </Typography>
             </Grid>
         </Grid>
@@ -130,7 +130,7 @@ function ProfileInfoCard({ title, description, info, social, action, shadow }) {
             </Grid>
             <Grid item xs={6}>
                 <Typography variant="button" fontWeight="regular" color="text">
-                &nbsp;12.000
+                &nbsp;{userdata.wins}
                 </Typography>
             </Grid>
         </Grid>
@@ -142,7 +142,7 @@ function ProfileInfoCard({ title, description, info, social, action, shadow }) {
             </Grid>
             <Grid item xs={6}>
                 <Typography variant="button" fontWeight="regular" color="text">
-                &nbsp;0
+                &nbsp;{userdata.loses}
                 </Typography>
             </Grid>
         </Grid>
